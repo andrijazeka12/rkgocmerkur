@@ -10,5 +10,15 @@ p {
 }
 a {
 font-size: 20px;
+text-align: center;
+}
 
+.slike{
+width: 50%;
+display: block;
+margin: 0 auto;
+
+}
+.centralno {
+  text-align: center;
 }

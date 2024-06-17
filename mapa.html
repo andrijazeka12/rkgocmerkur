@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktivna Mapa</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 700px;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="stilovi.css">
+    <link rel="stylesheet" href="stil2.css">
+</head>
+<body>
+    <ul>
+        <li><a  href="index.html">Početna</a></li>
+        <li><a href="igraci.html">Igrači</a></li>
+        <li><a href="mvp.html">MVP</a></li>
+        <li><a class="active" href="mapa.html">Mapa</a></li>
+        <li><a href="kontakat.html">Kontakt</a></li>
+        <li><a href="u-14.html">u-14</a></li>
+        <li><a href="uspesi.html">Uspesi</a></li>
+    </ul>
+    <h1>Interaktivna Mapa sa Markerima</h1>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Inicijalizacija mape
+        var map = L.map('map').setView([43.62642706120599, 20.90146221296661], 7); // Centrirano na Vrnjačku Banju, Srbija
+
+        // Dodavanje OpenStreetMap tile layer-a
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Dodavanje početnih markera
+        var marker1 = L.marker([43.62642706120599, 20.90146221296661]).addTo(map)
+            .bindPopup('<b>Hala Vlade Divac</b><br />Domaća hala').openPopup();
+
+           
+
+            var marker1 = L.marker([43.626247564875136, 20.892263751201533]).addTo(map)
+            .bindPopup('<b>Hala OŠ Popinski Borci</b><br />Pomoćna trening hala').openPopup();
+
+            var marker1 = L.marker([43.71520987710962, 20.693911732850772]).addTo(map)
+            .bindPopup('<b>Sportska Hala Ibar <br /> RK Sloga Kraljevo').openPopup();
+
+            var marker1 = L.marker([44.27160165648825, 19.882907488557027]).addTo(map)
+            .bindPopup('<b>Hala sportova Valjevo</b><br />RK Va Handball').openPopup();
+            
+            var marker1 = L.marker([44.02486272472353, 20.46459608566298]).addTo(map)
+            .bindPopup('<b>Hala sportova Breza</b><br />RK Omladinac Gornji Milanovac').openPopup();
+
+            var marker1 = L.marker([44.01399073610263, 20.924070599488367]).addTo(map)
+            .bindPopup('<b>Hala Jezero</b><br />RK Radnički Kragujevac').openPopup();
+
+            var marker1 = L.marker([43.13806770503109, 20.512767897605464]).addTo(map)
+            .bindPopup('<b>Hala sportova Pendik</b><br />RK Novi Pazar').openPopup();
+
+            var marker1 = L.marker([42.977464975488125, 21.950834893406427]).addTo(map)
+            .bindPopup('<b>SRC Dubočica</b><br />RK Dubočica Leskovac').openPopup();
+
+            var marker1 = L.marker([43.75406886478931, 20.10077908228167]).addTo(map)
+            .bindPopup('<b>Hala Arilje</b><br />RK Arilje').openPopup();
+
+            var marker1 = L.marker([44.66066753337267, 20.931272191578557]).addTo(map)
+            .bindPopup('<b>Hala sportova Smederevo</b><br />RK Smederevo').openPopup();
+
+            var marker1 = L.marker([44.61923541132119, 21.17376063998397]).addTo(map)
+            .bindPopup('<b>Hala sportova Požarevac</b><br />RK Mladi Radnik Požarevac').openPopup();
+
+            var marker1 = L.marker([44.71263484733941, 21.173604295806484]).addTo(map)
+            .bindPopup('<b>Hala sportova Kostolac</b><br />RK Rudar Kostolac').openPopup();
+
+            var marker1 = L.marker([43.45759203478014, 21.056727139943938]).addTo(map)
+            .bindPopup('<b>Hala sportova Aleksandrovac</b><br />RK Župa 54').openPopup();
+
+
+
+        // Funkcija za dodavanje novog markera klikom na mapu
+        function onMapClick(e) {
+            // Prompt za unos opisa
+            var description = prompt("Unesite opis za marker:");
+
+            // Provera da li je unos prazan ili otkazan
+            if (description === null || description.trim() === "") {
+                description = "Bez opisa";
+            }
+
+            // Kreiranje HTML sadržaja za popup sa dugmetom za brisanje
+            var popupContent = description + '<br/><button class="remove-marker">Obriši marker</button>';
+
+            // Dodavanje novog markera sa unetim opisom i dugmetom za brisanje
+            var newMarker = L.marker(e.latlng).addTo(map)
+                .bindPopup(popupContent).openPopup();
+
+            // Dodavanje event listenera za dugme za brisanje kada se popup otvori
+            newMarker.on("popupopen", function() {
+                var removeButton = document.querySelector(".remove-marker");
+                L.DomEvent.on(removeButton, 'click', function() {
+                    map.removeLayer(newMarker);
+                });
+            });
+        }
+
+        // Dodavanje event listenera za klik na mapu
+        map.on('click', onMapClick);
+    </script>
+</body>
+</html>
+
